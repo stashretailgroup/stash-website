@@ -1,0 +1,8 @@
+# Netlify: static site, no build step.
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
