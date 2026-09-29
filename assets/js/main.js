@@ -1,33 +1,37 @@
 /* STASH website behavior: tabs, hero machine, lineup, address suggestions, inquiry form */
 (function(){
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let motionPaused=false; try{ motionPaused = localStorage.getItem('stash-motion')==='off'; }catch(_){}
+  if(motionPaused){ reduce=true; document.documentElement.classList.add('no-motion'); }
   const hoverable = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* ---------- tabs ---------- */
   const panes=[...document.querySelectorAll('.pane')], tabsEls=[...document.querySelectorAll('.tab')];
-  function showPane(id, target){
+  function showPane(id, target, focusPane){
     panes.forEach(p=>p.hidden = p.dataset.pane!==id);
-    tabsEls.forEach(t=>t.setAttribute('aria-selected', t.dataset.go===id));
+    tabsEls.forEach(t=>{ if(t.dataset.go===id) t.setAttribute('aria-current','page'); else t.removeAttribute('aria-current'); });
     dispatchEvent(new Event('resize'));
     requestAnimationFrame(()=>{
       if(target && target.closest('.pane')) target.scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
-      else scrollTo({top:0, behavior:'auto'});
+      else { scrollTo({top:0, behavior:'auto'}); if(focusPane){ const hd=document.querySelector('#pane-'+id+' h1, #pane-'+id+' h2'); if(hd){ hd.setAttribute('tabindex','-1'); hd.focus({preventScroll:true}); } } }
     });
   }
   function route(hash){
     const id=(hash||'').replace('#','');
     if(!id || id==='top'){ showPane('home'); return; }
-    if(['home','machines','about'].includes(id)){ showPane(id); return; }
+    if(['home','machines','about'].includes(id)){ showPane(id, null, true); return; }
     const el=document.getElementById(id); const p=el && el.closest('.pane');
     if(p) showPane(p.dataset.pane, el);
   }
   document.addEventListener('click', e=>{
     const a=e.target.closest('a[href^="#"]'); if(!a) return;
+    if(a.hasAttribute('data-skip')){ e.preventDefault(); const mn=document.getElementById('top'); const p=mn.querySelector('.pane:not([hidden])'); (p&&p.querySelector('h1,h2')||mn).setAttribute('tabindex','-1'); (p&&p.querySelector('h1,h2')||mn).focus(); return; }
     const h=a.getAttribute('href'); if(h==='#') return;
     e.preventDefault(); route(h);
     try{ history.replaceState(null,'',h) }catch(_){}
   });
   if(location.hash) route(location.hash);
+  addEventListener('hashchange',()=>route(location.hash));
 
   /* ---------- hero machine ---------- */
   const m = document.getElementById('machine'), peek = document.getElementById('peek'), peekLabel = document.getElementById('peekLabel');
@@ -92,12 +96,26 @@
       else if(e.key==='Escape'){ close(); }
     });
     inp.addEventListener('blur',()=>setTimeout(close,120));
+  
+  /* ---------- pause animations (WCAG 2.2.2) ---------- */
+  (function(){
+    const bt=document.getElementById('motionToggle'); if(!bt) return;
+    const set=(off)=>{ bt.setAttribute('aria-pressed',off); bt.textContent= off ? 'Play animations' : 'Pause animations'; };
+    set(motionPaused);
+    bt.addEventListener('click',()=>{
+      const off = bt.getAttribute('aria-pressed')!=='true';
+      try{ localStorage.setItem('stash-motion', off?'off':'on'); }catch(_){}
+      if(off){ reduce=true; document.documentElement.classList.add('no-motion'); dispatchEvent(new Event('stash:pause')); set(true); }
+      else { location.reload(); }
+    });
   })();
+})();
 
   /* ---------- screen themes ---------- */
   const sV=document.getElementById('scrVape'), sP=document.getElementById('scrPoke');
   let poke=false, scrTimer=null;
   function setScreen(p){ poke=p; m.classList.toggle('show-poke',p); sV.setAttribute('aria-pressed',!p); sP.setAttribute('aria-pressed',p); }
+  addEventListener('stash:pause',()=>clearInterval(scrTimer));
   function cycle(){ clearInterval(scrTimer); if(!reduce) scrTimer=setInterval(()=>{ if(!m.classList.contains('is-open')) setScreen(!poke) },4000); }
   sV.addEventListener('click',()=>{setScreen(false);cycle()}); sP.addEventListener('click',()=>{setScreen(true);cycle()});
   cycle();
@@ -181,9 +199,10 @@
   ];
   const luList=document.getElementById('luList'), luImgs=document.getElementById('luImgs'), luInfo=document.getElementById('luInfo');
   let luCur=0, luTimer=null, luAuto=!reduce;
+  addEventListener('stash:pause',()=>{ luAuto=false; clearTimeout(luTimer); document.querySelectorAll('.lu-btn .bar').forEach(b=>b.classList.remove('run')); });
   LU.forEach((x,i)=>{
     const im=document.createElement('img'); im.src=x.img; im.alt=x.n+' render'; luImgs.appendChild(im);
-    const b=document.createElement('button'); b.type='button'; b.role='tab'; b.className='lu-btn';
+    const b=document.createElement('button'); b.type='button'; b.className='lu-btn';
     b.innerHTML=`<span class="th"><img src="${x.img}" alt=""></span><span><b>${x.n}</b><small>${x.s}</small></span><span class="bar"></span>`;
     b.addEventListener('click',()=>{luAuto=false; luShow(i)});
     luList.appendChild(b);
@@ -191,7 +210,7 @@
   function luShow(i){
     luCur=i;
     [...luImgs.children].forEach((im,j)=>im.classList.toggle('on',j===i));
-    [...luList.children].forEach((b,j)=>{b.setAttribute('aria-selected',j===i); const bar=b.querySelector('.bar'); bar.classList.remove('run'); if(j===i&&luAuto){void bar.offsetWidth; bar.classList.add('run')}});
+    [...luList.children].forEach((b,j)=>{b.setAttribute('aria-pressed',j===i); const bar=b.querySelector('.bar'); bar.classList.remove('run'); if(j===i&&luAuto){void bar.offsetWidth; bar.classList.add('run')}});
     const x=LU[i];
     luInfo.innerHTML=`<h3>${x.n}</h3><p>${x.d}</p><div class="lu-chips">${x.c.map(c=>`<span>${c}</span>`).join('')}</div>`;
     clearTimeout(luTimer); if(luAuto) luTimer=setTimeout(()=>luShow((luCur+1)%LU.length),6000);
@@ -315,17 +334,18 @@
       const d=miles(p), min=Math.max(1,Math.round(d*4));
       card.classList.add('swap');
       setTimeout(()=>{
-        card.innerHTML=`<div class="top"><div><h4></h4><div class="sub"><span class="stars">★★★★★</span> ${p.r} (${p.n}) · <span class="k"></span></div></div><div class="dist">${d.toFixed(1)} mi · ${min} min</div></div>
+        card.innerHTML=`<div class="top"><div><p class="mx-name"></p><div class="sub"><span class="stars">★★★★★</span> ${p.r} (${p.n}) · <span class="k"></span></div></div><div class="dist">${d.toFixed(1)} mi · ${min} min</div></div>
           <span class="badge-in"><b>STASH</b> Machine inside · Open 24/7${p.age?' · 21+':''}</span>
           <div class="chips">${p.items.map(()=>'<span></span>').join('')}</div>
           <div class="acts" aria-hidden="true"><span>Directions</span><span>Call</span></div>`;
-        card.querySelector('h4').textContent=p.name; card.querySelector('.k').textContent=p.kind;
+        card.querySelector('.mx-name').textContent=p.name; card.querySelector('.k').textContent=p.kind;
         card.querySelectorAll('.chips span').forEach((s,i)=>s.textContent=p.items[i]);
         card.classList.remove('swap');
       },reduce?0:220);
       if(reduce) requestAnimationFrame(frame);
     }
     let qi=0, timers=[], auto=true;
+    addEventListener('stash:pause',()=>{ if(auto){ auto=false; timers.forEach(clearTimeout); timers=[]; } requestAnimationFrame(frame); });
     function stopAuto(){ auto=false; timers.forEach(clearTimeout); timers=[]; qEl.textContent='STASH near me'; }
     function nearest(q){ return PINS.filter(p=>p.t===q.pref).sort((a,b)=>miles(a)-miles(b))[0]; }
     function runQuery(){
@@ -367,15 +387,19 @@
     if(!g('biz')) missing.push('your business or property');
     if(!g('type')) missing.push('a property type');
     if(!/^\S+@\S+\.\S+$/.test(g('email'))) missing.push('a valid email');
-    if(missing.length){ err.textContent = 'Please add ' + missing.join(', ') + '.'; err.hidden=false; return; }
+    if(!g('consent')) missing.push('your agreement to be contacted');
+    const bad={name:!g('name'),biz:!g('biz'),type:!g('type'),email:!/^\S+@\S+\.\S+$/.test(g('email')),consent:!g('consent')};
+    const ids={name:'f-name',biz:'f-biz',type:'f-type',email:'f-email',consent:'f-consent'};
+    Object.keys(ids).forEach(k=>{ const el=document.getElementById(ids[k]); if(bad[k]) el.setAttribute('aria-invalid','true'); else el.removeAttribute('aria-invalid'); });
+    if(missing.length){ err.textContent = 'Please add ' + missing.join(', ') + '.'; err.hidden=false; const first=Object.keys(ids).find(k=>bad[k]); if(first) document.getElementById(ids[first]).focus(); return; }
     err.hidden = true;
     const body = `Machine: ${g('machine')}\nName: ${g('name')}\nBusiness / property: ${g('biz')}\nAddress: ${g('address')||'—'}\nProperty type: ${g('type')}\nCity: ${g('city')||'—'}\nEmail: ${g('email')}\nPhone: ${g('phone')||'—'}\n\n${g('msg')||''}`.trim();
     if(SHEET_URL && SHEET_URL.indexOf('script.google.com')>-1){
       submitBtn.disabled = true; submitBtn.firstChild.textContent = 'Sending… ';
       try{
-        const data = new URLSearchParams({machine:g('machine'),name:g('name'),business:g('biz'),address:g('address'),type:g('type'),city:g('city'),email:g('email'),phone:g('phone'),message:g('msg'),page:location.hostname||'site'});
+        const data = new URLSearchParams({machine:g('machine'),name:g('name'),business:g('biz'),address:g('address'),type:g('type'),city:g('city'),email:g('email'),phone:g('phone'),message:g('msg'),page:(location.hostname||'site')+' | consent v1 '+new Date().toISOString().slice(0,10)});
         await fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:data});
-        form.querySelectorAll('input:not([type=radio]),textarea').forEach(i=>i.value='');
+        form.querySelectorAll('input:not([type=radio]):not([type=checkbox]),textarea').forEach(i=>i.value=''); document.getElementById('f-consent').checked=false;
         ready.hidden = true; sent.hidden = false;
         sent.scrollIntoView({behavior: reduce?'auto':'smooth', block:'nearest'});
         return;
