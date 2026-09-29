@@ -315,14 +315,14 @@ p{margin:0}
 .quote p{max-width:none}
 .quote .ql{display:block;color:inherit;white-space:nowrap}
 .quote .ql.hl{color:var(--blue)}
-@media (max-width:760px){.quote .ql{white-space:normal}}
+@media (max-width:760px){.quote p{font-stretch:88%;letter-spacing:-.01em;font-size:min(calc((100vw - 40px) / 21.5),2rem)}.quote .ql.hl{color:#4d80ff}}
 
 /* map teaser */
 .map{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:center;background:linear-gradient(135deg,var(--panel),var(--navy));border:1px solid var(--line);border-radius:26px;padding:clamp(24px,4vw,48px);overflow:hidden;position:relative}
 .map .badge{justify-self:start;font-family:var(--f-label);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;border:1px solid #fff;color:#fff;padding:4px 12px;border-radius:999px}
 .gword{text-transform:none;letter-spacing:.02em;font-family:var(--f-body);font-weight:700;font-size:1.08em}
 .mapx-wrap{display:grid;gap:10px;min-width:0}
-.mx-soon{margin:0;font-family:var(--f-label);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:1rem;color:#fff;text-align:center}
+.mx-soon{margin:0 0 4px;font-family:var(--f-display);font-style:italic;font-weight:900;font-stretch:112%;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(1.9rem,4vw,2.8rem);line-height:1;color:#fff;text-align:center;text-shadow:0 2px 18px rgba(45,107,255,.55)}
 .map-copy{display:grid;gap:16px;min-width:0}
 .map-copy ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 .map-copy li{display:flex;gap:10px;align-items:center}
