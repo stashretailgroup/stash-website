@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STASH Retail Group | The Good Stuff. On Demand.</title>
+<meta name="description" content="Host a STASH machine at no cost. We install, stock and service Pokémon card and 21+ vape machines, and pay your business 10% of net sales every month.">
+<meta name="theme-color" content="#04060d">
+<link rel="canonical" href="https://stashretailgroup.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<!-- Link preview (texts, iMessage, Instagram, LinkedIn, X). -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STASH Retail Group">
+<meta property="og:title" content="STASH | The Good Stuff. On Demand.">
+<meta property="og:description" content="Free to host. We install, stock and service the machine, and pay you 10% of net sales every month.">
+<meta property="og:url" content="https://stashretailgroup.com/">
+<meta property="og:image" content="https://stashretailgroup.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://stashretailgroup.com/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100..125,400..900;1,100..125,700..900&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="nav-logo" href="#top" aria-label="STASH home"><img decoding="async" src="assets/img/logo.webp" alt="STASH"></a>
+    <nav class="tabs" role="tablist" aria-label="Site sections">
+      <a class="tab" id="tab-home" role="tab" href="#home" data-go="home" aria-selected="true">Home</a>
+      <a class="tab" id="tab-machines" role="tab" href="#machines" data-go="machines" aria-selected="false">Machines</a>
+      <a class="tab" id="tab-about" role="tab" href="#about" data-go="about" aria-selected="false">About</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="#host">Get a machine</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="pane" id="pane-home" data-pane="home" role="tabpanel" aria-labelledby="tab-home">
+<section class="hero">
+  <canvas id="strokes" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow rise d1">Automated convenience retail</p>
+      <h1 class="rise d2"><span>The good stuff.</span><span class="blue">On demand.</span></h1>
+      <div class="payline rise d3"><div class="pay-big"><b>$0</b><span>You pay nothing</span></div><div class="pay-plus" aria-hidden="true">+</div><div class="pay-big"><b>10<small>%</small></b><span>Of net sales, paid monthly</span></div></div>
+      <p class="lede rise d3">Put a STASH machine in your business at no cost. We bring the machine, stock it, service it, and pay you 10% of net sales just for having it there.</p>
+      <div class="hero-ctas rise d4">
+        <a class="btn btn-primary" href="#host">Get a machine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#how">How it works</a>
+      </div>
+      <p class="rise d5 fine">No machine cost, no inventory, no staff time.</p>
+    </div>
+    <div class="stage">
+      <span class="marker good-stuff" aria-hidden="true"><span>Free to host.</span><span class="ol">We pay you.</span></span>
+      <div class="machine-in">
+        <div class="float">
+          <button class="machine" id="machine" type="button" aria-pressed="false" aria-label="STASH machine. Press to open the door and see the stocked shelves.">
+            <img decoding="async" class="m-open" src="assets/img/machines/stash-tower-open.webp" alt="STASH machine with the door open, eight shelves of stocked products">
+            <img decoding="async" class="m-closed" src="assets/img/machines/stash-tower-vape.webp" alt="STASH machine with a touchscreen showing vapes and nicotine products">
+            <img decoding="async" class="m-poke" src="assets/img/machines/stash-tower-pokemon.webp" alt="STASH machine with a touchscreen showing Pokémon card packs">
+            <span class="sweep" aria-hidden="true"></span>
+            <span class="callout c1" aria-hidden="true"><i></i>8 stocked shelves</span>
+            <span class="callout c2" aria-hidden="true"><i></i>Restocked by STASH</span>
+            <span class="callout c3" aria-hidden="true"><i></i>Tap, card &amp; ID check</span>
+          </button>
+        </div>
+      </div>
+      <button class="peek" id="peek" type="button"><span class="dot"></span><span id="peekLabel">Hover to look inside</span></button>
+      <div class="screens" role="group" aria-label="Screen theme"><button type="button" id="scrVape" aria-pressed="true">Vape screen</button><button type="button" id="scrPoke" aria-pressed="false">Pokémon screen</button></div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track">
+    <span>Trading cards</span><span>Booster packs</span><span>Mystery slabs</span><span>Vapes · 21+</span><span>Chargers</span><span>Power banks</span><span>Travel essentials</span><span>Personal care</span><span>Collectibles</span>
+    <span>Trading cards</span><span>Booster packs</span><span>Mystery slabs</span><span>Vapes · 21+</span><span>Chargers</span><span>Power banks</span><span>Travel essentials</span><span>Personal care</span><span>Collectibles</span>
+  </div></div>
+</section>
+
+<section class="section" aria-labelledby="perks-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">For property owners</p>
+      <h2 id="perks-h">High-demand amenities. <em>Real revenue.</em></h2>
+      <p class="lede">STASH provides the machine, installation, stocking, maintenance and support. You provide the location and get paid.</p>
+    </div>
+    <div class="perks">
+      <div class="perk"><b>10<small>%</small></b><strong>Revenue share</strong><p>Your property earns 10% of net sales, paid monthly.</p></div>
+      <div class="perk"><b>$0</b><strong>Machine cost</strong><p>STASH provides the machine at no cost to you.</p></div>
+      <div class="perk"><b>24/7</b><strong>Always open</strong><p>Residents, guests and staff get what they need any time, day or night.</p></div>
+      <div class="perk"><b>0<small> hrs</small></b><strong>Of your time</strong><p>Inventory, restocking, repairs and payment issues are all on us.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section band" id="choose" aria-labelledby="machines-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Choose your STASH</p>
+      <h2 id="machines-h">One machine. <em>Built for your crowd.</em></h2>
+      <p class="lede">STASH isn't another snack machine. Each unit is a specialty store, stocked for the people who walk past it every day.</p>
+    </div>
+    <div class="concepts">
+      <article class="concept">
+        <div class="stage-p cards" aria-hidden="true"><img decoding="async" class="l" src="assets/img/products/pokemon-prismatic-evolutions.webp" alt=""><img decoding="async" class="r" src="assets/img/products/pokemon-151.webp" alt=""><img decoding="async" class="a" src="assets/img/products/pokemon-ascended-heroes.webp" alt=""></div>
+        <span class="tag">All ages</span>
+        <h3>Trading cards</h3>
+        <p>Rip packs on the spot. Made for arcades, game rooms and entertainment venues.</p>
+        <ul><li>Ascended Heroes</li><li>Prismatic Evolutions</li><li>151</li><li>Sports cards</li></ul>
+      </article>
+      <article class="concept">
+        <div class="stage-p vape" aria-hidden="true"><img decoding="async" class="l" src="assets/img/products/vape-red.webp" alt=""><img decoding="async" class="r" src="assets/img/products/vape-blue.webp" alt=""><img decoding="async" class="a" src="assets/img/products/vape-mint.webp" alt=""></div>
+        <span class="tag age">21+ locations only</span>
+        <h3>Vapes</h3>
+        <p>Adult-only machines for bars, lounges and nightlife, following local regulations.</p>
+        <ul><li>Geek Bar</li><li>Disposables</li><li>Accessories</li></ul>
+      </article>
+      <article class="concept">
+        <div class="stage-p pouch" aria-hidden="true"><img decoding="async" class="l" src="assets/img/products/zyn-mint.webp" alt=""><img decoding="async" class="a" src="assets/img/products/zyn-arctic-mint.webp" alt=""></div>
+        <span class="tag age">21+ locations only</span>
+        <h3>Nicotine pouches</h3>
+        <p>Top-selling pouch brands and flavors, stocked alongside vapes or on their own.</p>
+        <ul><li>ZYN</li><li>Mint flavors</li><li>Multiple strengths</li></ul>
+      </article>
+      <article class="concept">
+        <div class="stage-p mix" aria-hidden="true"><img decoding="async" class="l" src="assets/img/products/pokemon-151.webp" alt=""><img decoding="async" class="r" src="assets/img/products/zyn-arctic-mint.webp" alt=""><img decoding="async" class="a" src="assets/img/products/power-bank.webp" alt=""></div>
+        <span class="tag">Built to order</span>
+        <h3>Custom mix</h3>
+        <p>Combine categories based on your property and what your people actually buy.</p>
+        <ul><li>Power banks</li><li>Chargers</li><li>Travel essentials</li><li>Collectibles</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-h">From yes to <em>first sale.</em></h2>
+    </div>
+    <ol class="steps" style="list-style:none;padding:0;margin:0">
+      <li class="step"><span class="n">01</span><h3>We find the right spot</h3><p>We walk your property and pick a high-traffic location that works for your space.</p></li>
+      <li class="step"><span class="n">02</span><h3>We curate the products</h3><p>Trading cards, vapes or a mix, chosen for your location and the people who use it.</p></li>
+      <li class="step"><span class="n">03</span><h3>We install &amp; operate</h3><p>STASH handles installation, stocking, monitoring, maintenance and support.</p></li>
+      <li class="step"><span class="n">04</span><h3>You get paid</h3><p>Your property receives 10% of net sales every month.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap"><div class="cta-inner"><div><p class="eyebrow">Host a STASH</p><h2>Ready for a machine?</h2></div><a class="btn btn-primary" href="#host">Get a machine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+</section>
+</div>
+<div class="pane" id="pane-machines" data-pane="machines" role="tabpanel" aria-labelledby="tab-machines" hidden>
+<section class="section" id="lineup" aria-labelledby="lineup-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">The STASH lineup</p>
+      <h2 id="lineup-h">A format for <em>every floor plan.</em></h2>
+      <p class="lede">From a slim tower in a bar hallway to a full grab-and-go market in an apartment lobby. Pick one to take a closer look.</p>
+    </div>
+    <div class="lineup">
+      <div class="lu-list" role="tablist" aria-label="STASH machines" id="luList"></div>
+      <div class="lu-stage">
+        <div class="lu-imgs" id="luImgs"></div>
+        <div class="lu-info" id="luInfo" aria-live="polite"></div>
+      </div>
+    </div>
+    <p class="lu-note" style="margin-top:14px">Machines shown as design renders. Final wraps and layouts may vary by location.</p>
+  </div>
+</section>
+
+<section class="section band" id="gallery" aria-label="Gallery">
+  <div class="wrap">
+    <div class="wild" style="margin-top:0">
+      <div class="wild-head">
+        <h3>Out in the <em style="color:var(--blue)">wild</em></h3>
+        <p>Real installs of the machine formats we deploy: stands, wall units and towers in retail, bars and venues.</p>
+      </div>
+      <div class="wild-grid">
+        <figure><img decoding="async" src="assets/img/gallery/pokemon-stand.webp" alt="Pokémon card vending stand at a store entrance" loading="lazy"><figcaption><span>Trading cards</span><b>Pokémon stand</b></figcaption></figure>
+        <figure><img decoding="async" src="assets/img/gallery/pub-wall-unit.webp" alt="Wall-mounted vape machine in an Irish pub" loading="lazy"><figcaption><span>Vapes · 21+</span><b>Pub wall unit</b></figcaption></figure>
+        <figure><img decoding="async" src="assets/img/gallery/pouch-wall-unit.webp" alt="Wall-mounted nicotine pouch machine next to an ATM" loading="lazy"><figcaption><span>Pouches · 21+</span><b>Wall unit</b></figcaption></figure>
+        <figure><img decoding="async" src="assets/img/gallery/grocery-entrance.webp" alt="Pokémon card machine inside a grocery store" loading="lazy"><figcaption><span>Trading cards</span><b>Grocery entrance</b></figcaption></figure>
+        <figure><img decoding="async" src="assets/img/gallery/pool-hall-tower.webp" alt="LED-lit vape tower in a pool hall" loading="lazy"><figcaption><span>Vapes · 21+</span><b>Pool hall tower</b></figcaption></figure>
+        <figure><img decoding="async" src="assets/img/gallery/pokemon-stand-black.webp" alt="Black Pokémon pack machine on a stand" loading="lazy"><figcaption><span>Trading cards</span><b>Stand model</b></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="models-h">
+  <div class="wrap models">
+    <div class="models-copy">
+      <div class="section-head" style="margin-bottom:0">
+        <p class="eyebrow">Two footprints</p>
+        <h2 id="models-h">Fits where <em>a plant would.</em></h2>
+        <p class="lede">Both models are just 10.2" deep. All we need is a wall or a corner, an electrical outlet and access for servicing.</p>
+      </div>
+      <div class="spec">
+        <div class="spec-row">
+          <h3>Slim Wall VTM</h3>
+          <dl><div><dt>Width</dt><dd>23.6"</dd></div><div><dt>Height</dt><dd>40.5"</dd></div><div><dt>Depth</dt><dd>10.2"</dd></div></dl>
+          <p>Mounts flat to a wall. Ideal for hallways, lobbies and tight corners.</p>
+        </div>
+        <div class="spec-row">
+          <h3>VTM Stand Model</h3>
+          <dl><div><dt>Width</dt><dd>23.6"</dd></div><div><dt>Height</dt><dd>64.0"</dd></div><div><dt>Depth</dt><dd>10.2"</dd></div></dl>
+          <p>Freestanding on a pedestal. Eye-level screen, no wall mounting required.</p>
+        </div>
+      </div>
+    </div>
+    <figure class="diagram" style="margin:0">
+      <svg viewBox="0 0 440 400" role="img" aria-label="Front-view scale drawing: Slim Wall at 23.6 by 40.5 inches, Stand Model at 23.6 by 64 inches, beside a 5 foot 9 inch person.">
+        <!-- scale: 5px per inch, floor at y=360 -->
+        <line x1="10" y1="360" x2="430" y2="360" stroke="#1d2c66" stroke-width="2"/>
+        <!-- slim wall mounted, bottom at 30in -->
+        <rect x="40" y="10" width="4" height="350" fill="#132057"/>
+        <rect x="48" y="7.5" width="118" height="202.5" rx="6" fill="#0a1538" stroke="#2d6bff" stroke-width="2"/>
+        <rect x="60" y="20" width="94" height="120" rx="3" fill="#2d6bff" opacity=".25"/>
+        <text x="107" y="170" fill="#f2f5ff" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="14" text-anchor="middle">SLIM WALL</text>
+        <text x="107" y="188" fill="#9aa6cc" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="12" text-anchor="middle">wall-mounted</text>
+        <line x1="178" y1="7.5" x2="178" y2="210" stroke="#56dcff" stroke-width="1.2"/>
+        <line x1="173" y1="7.5" x2="183" y2="7.5" stroke="#56dcff"/><line x1="173" y1="210" x2="183" y2="210" stroke="#56dcff"/>
+        <text x="186" y="113" fill="#56dcff" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="13">40.5"</text>
+        <!-- stand model -->
+        <rect x="230" y="40" width="118" height="210" rx="6" fill="#0a1538" stroke="#2d6bff" stroke-width="2"/>
+        <rect x="242" y="52" width="94" height="130" rx="3" fill="#2d6bff" opacity=".25"/>
+        <rect x="276" y="250" width="26" height="100" fill="#132057" stroke="#2d6bff" stroke-width="1.5"/>
+        <rect x="244" y="348" width="90" height="10" rx="3" fill="#132057" stroke="#2d6bff" stroke-width="1.5"/>
+        <text x="289" y="205" fill="#f2f5ff" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="14" text-anchor="middle">STAND</text>
+        <text x="289" y="222" fill="#9aa6cc" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="12" text-anchor="middle">on pedestal</text>
+        <line x1="360" y1="40" x2="360" y2="360" stroke="#56dcff" stroke-width="1.2"/>
+        <line x1="355" y1="40" x2="365" y2="40" stroke="#56dcff"/><line x1="355" y1="360" x2="365" y2="360" stroke="#56dcff"/>
+        <text x="366" y="204" fill="#56dcff" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="13">64.0"</text>
+        <!-- width dim -->
+        <line x1="230" y1="28" x2="348" y2="28" stroke="#9aa6cc" stroke-width="1"/>
+        <text x="289" y="22" fill="#9aa6cc" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="12" text-anchor="middle">23.6" wide</text>
+        <!-- person 69in = 345px tall, top y=15 -->
+        <g fill="#1b2656">
+          <circle cx="410" cy="31" r="15"/>
+          <path d="M392 52h36l6 120h-12l-4 188h-9l-3-150-3 150h-9l-4-188h-12z"/>
+        </g>
+        <text x="410" y="382" fill="#9aa6cc" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="12" text-anchor="middle">5'9" person</text>
+        <text x="107" y="382" fill="#9aa6cc" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="12" text-anchor="middle">bottom at 30" (typical)</text>
+      </svg>
+      <figcaption>Front view, drawn to scale. Mounting height for the Slim Wall is set during install.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section band" id="locations" aria-labelledby="loc-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Where STASH fits</p>
+      <h2 id="loc-h">Every location <em>stocks different.</em></h2>
+      <p class="lede">A hotel guest needs a charger. An arcade crowd wants booster packs. Pick a place to see a typical starting mix.</p>
+    </div>
+    <div class="loc">
+      <div class="loc-tabs" role="tablist" aria-label="Location types" id="locTabs"></div>
+      <div class="loc-panel" role="tabpanel" id="locPanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap"><div class="cta-inner"><div><p class="eyebrow">Host a STASH</p><h2>Ready for a machine?</h2></div><a class="btn btn-primary" href="#host">Get a machine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+</section>
+</div>
+<div class="pane" id="pane-about" data-pane="about" role="tabpanel" aria-labelledby="tab-about" hidden>
+<section class="section" id="vision" aria-label="Our mission">
+  <div class="wrap">
+    <div class="quote" style="margin-top:0">
+      <p>Wherever people forget something, need something or want it now, <span>STASH should be nearby.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="map-h">
+  <div class="wrap">
+    <div class="map">
+      <div class="map-copy">
+        <span class="badge">Listed on Google</span>
+        <h2 id="map-h" style="font-size:clamp(2rem,4.4vw,3rem)">The STASH <em style="color:var(--blue)">Map</em></h2>
+        <p class="lede">Every STASH machine gets listed online, including on Google. When people nearby search for Pokémon cards, vapes or a charger, your business shows up as the place to get it.</p>
+        <ul><li>New customers searching for what you carry</li><li>More foot traffic through your doors</li><li>Free promotion as part of the STASH network</li></ul>
+      </div>
+      <canvas id="mapCanvas" aria-label="Illustrative map with STASH location pins" role="img"></canvas>
+    </div>
+  </div>
+</section>
+
+<section class="section band" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Straight answers</p>
+      <h2 id="faq-h">Frequently asked <em>questions.</em></h2>
+    </div>
+    <div class="faq">
+      <details><summary>How much does it cost?</summary><p>STASH provides the machine at no cost to you.</p></details>
+      <details><summary>How do we make money?</summary><p>You earn 10% of net sales every month.</p></details>
+      <details><summary>Who stocks it?</summary><p>We do. STASH manages inventory, restocking and product rotation.</p></details>
+      <details><summary>What if something breaks?</summary><p>We handle all maintenance, service and payment issues.</p></details>
+      <details><summary>Can we request products?</summary><p>Yes. We adjust the product mix based on your location and customer needs.</p></details>
+      <details><summary>What products can it carry?</summary><p>Trading cards, vapes and other high-demand products, based on local regulations. Vape machines go only in 21+ locations.</p></details>
+      <details><summary>How much space does it need?</summary><p>Slim Wall: 23.6" W × 40.5" H × 10.2" D. Stand Model: 23.6" W × 64.0" H × 10.2" D.</p></details>
+      <details><summary>What do you need from us?</summary><p>A suitable location, access for servicing, an electrical outlet and Wi-Fi.</p></details>
+      <details><summary>Where can it be placed?</summary><p>Apartments, gyms, schools, hotels, offices, bars, nightclubs, gas stations, hospitals, campuses and other high-traffic properties.</p></details>
+      <details><summary>Which areas do you serve?</summary><p>We're placing new machines every month. Tell us where your business is and we'll let you know how soon we can get one to you.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="host" aria-labelledby="host-h">
+  <div class="wrap contact">
+    <div class="contact-side">
+      <p class="eyebrow">Host a STASH</p>
+      <h2 id="host-h">Turn unused space into an amenity <em>that pays you.</em></h2>
+      <p class="lede">Tell us about your property and which machine you're interested in. We'll get back to you with a location plan and product mix.</p>
+      <div class="direct">
+        <div class="direct-row"><div><small>Email</small><a href="mailto:stashretailgroup@gmail.com" id="emailText">stashretailgroup@gmail.com</a></div><button class="copy" type="button" data-copy="stashretailgroup@gmail.com">Copy</button></div>
+        <div class="direct-row"><div><small>Phone / text</small><a href="tel:+17864862722">786-486-2722</a></div><button class="copy" type="button" data-copy="786-486-2722">Copy</button></div>
+      </div>
+    </div>
+    <form id="hostForm" novalidate style="position:relative">
+      <fieldset>
+        <legend class="legend" style="margin-bottom:6px">Which machine?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="machine" id="m-cards" value="Trading cards" checked><span>Pokémon / cards<small>All ages</small></span></label>
+          <label class="choice"><input type="radio" name="machine" id="m-vape" value="Vapes"><span>Vapes<small>21+ only</small></span></label>
+          <label class="choice"><input type="radio" name="machine" id="m-both" value="Both (cards + vapes)"><span>Both<small>Custom mix</small></span></label>
+          <label class="choice"><input type="radio" name="machine" id="m-unsure" value="Not sure yet"><span>Not sure<small>Help me pick</small></span></label>
+        </div>
+      </fieldset>
+      <div class="row2">
+        <label for="f-name">Your name<input id="f-name" name="name" autocomplete="name" required></label>
+        <label for="f-biz">Business / property<input id="f-biz" name="biz" autocomplete="organization" required></label>
+      </div>
+      <div class="addr">
+        <label for="f-addr">Business address<input id="f-addr" name="address" autocomplete="off" placeholder="Start typing the street address" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="addrList"></label>
+        <ul class="addr-list" id="addrList" role="listbox" hidden></ul>
+      </div>
+      <div class="row2">
+        <label for="f-type">Property type
+          <select id="f-type" name="type" required>
+            <option value="" disabled selected>Select</option><option>Apartment community</option><option>Hotel</option><option>Bar / nightlife</option><option>Arcade / entertainment</option><option>Gym</option><option>Office</option><option>Hospital</option><option>School / campus</option><option>Retail store</option><option>Other</option>
+          </select>
+        </label>
+        <label for="f-city">City<input id="f-city" name="city" placeholder="Your city" autocomplete="address-level2"></label>
+      </div>
+      <div class="row2">
+        <label for="f-email">Email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+        <label for="f-phone">Phone<input id="f-phone" name="phone" type="tel" autocomplete="tel"></label>
+      </div>
+      <label for="f-msg">Anything else?<textarea id="f-msg" name="msg" placeholder="Foot traffic, hours, where you'd like the machine…"></textarea></label>
+      <p class="err" id="formErr" hidden></p>
+      <div class="form-foot">
+        <p>We reply within one business day. Vape machines are placed only at 21+ locations.</p>
+        <button class="btn btn-primary" type="submit">Request a machine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <input type="text" name="website" id="f-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <div class="ready" id="sent" hidden role="status"><h3>Request received.</h3><p>Thanks. Our team will reach out within one business day to set up your STASH.</p></div>
+      <div class="ready" id="ready" hidden>
+        <h3>Almost there. Send this to us.</h3>
+        <p>Your request is written up below. Open it in your email app, or copy it and send it to stashretailgroup@gmail.com.</p>
+        <pre id="readyText"></pre>
+        <div class="acts">
+          <a class="btn btn-primary" id="mailLink" href="#">Open in email</a>
+          <button class="btn btn-ghost" type="button" id="copyReq">Copy request</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:grid;gap:14px">
+      <img decoding="async" src="assets/img/logo.webp" alt="STASH">
+      <p style="max-width:40ch">Automated convenience retail, placed where people already live, work, stay and play. The good stuff, on demand.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul><li><a href="#home">Home</a></li><li><a href="#machines">Machines</a></li><li><a href="#about">About</a></li><li><a href="#faq">FAQ</a></li><li><a href="#host">Host a STASH</a></li></ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul><li>stashretailgroup@gmail.com</li><li>786-486-2722</li></ul>
+    </div>
+    <div class="legal"><span>© 2026 STASH Retail Group</span><span>Vape and nicotine products are sold only at 21+ locations, following local regulations.</span></div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
