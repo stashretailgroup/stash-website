@@ -10,7 +10,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
-<!-- Link preview (texts, iMessage, Instagram, LinkedIn, X). -->
+<!-- Link preview (texts, iMessage, Instagram, LinkedIn, X) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STASH Retail Group">
 <meta property="og:title" content="STASH | The Good Stuff. On Demand.">
@@ -30,7 +30,7 @@
 <body>
 <header class="nav">
   <div class="wrap">
-    <a class="nav-logo" href="#top" aria-label="STASH home"><img decoding="async" src="assets/img/logo.webp" alt="STASH"></a>
+    <a class="nav-logo" href="#top" aria-label="STASH Retail Group home"><img decoding="async" src="assets/img/logo-mark.webp" alt="STASH"><span class="nav-sub" aria-hidden="true">Retail Group</span></a>
     <nav class="tabs" role="tablist" aria-label="Site sections">
       <a class="tab" id="tab-home" role="tab" href="#home" data-go="home" aria-selected="true">Home</a>
       <a class="tab" id="tab-machines" role="tab" href="#machines" data-go="machines" aria-selected="false">Machines</a>
@@ -285,12 +285,26 @@
   <div class="wrap">
     <div class="map">
       <div class="map-copy">
-        <span class="badge">Listed on Google</span>
+        <span class="badge">Listed on <span class="gword" aria-label="Google"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></span></span>
         <h2 id="map-h" style="font-size:clamp(2rem,4.4vw,3rem)">The STASH <em style="color:var(--blue)">Map</em></h2>
         <p class="lede">Every STASH machine gets listed online, including on Google. When people nearby search for Pokémon cards, vapes or a charger, your business shows up as the place to get it.</p>
         <ul><li>New customers searching for what you carry</li><li>More foot traffic through your doors</li><li>Free promotion as part of the STASH network</li></ul>
       </div>
-      <canvas id="mapCanvas" aria-label="Illustrative map with STASH location pins" role="img"></canvas>
+      <div class="mapx-wrap">
+      <figure class="mapx" id="mapx" aria-label="Example of how a STASH location shows up when people nearby search">
+        <canvas id="mapCanvas" aria-hidden="true"></canvas>
+        <div class="mx-search" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <span id="mxQuery"></span><i class="mx-caret"></i>
+        </div>
+        <div class="mx-zoom" aria-hidden="true"><span>+</span><span>−</span></div>
+        <div class="mx-compass" aria-hidden="true">N</div>
+        <div class="mx-pins" id="mxPins"></div>
+        <div class="mx-card" id="mxCard" aria-live="polite"></div>
+        <div class="mx-legend" aria-hidden="true"><span><i style="background:var(--pin-cards)"></i>Cards</span><span><i style="background:var(--pin-vapes)"></i>Vapes 21+</span><span><i style="background:var(--pin-mix)"></i>Essentials</span></div>
+              </figure>
+        <p class="mx-note">Example only. Businesses and streets shown are illustrations.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -383,7 +397,7 @@
 <footer>
   <div class="wrap">
     <div style="display:grid;gap:14px">
-      <img decoding="async" src="assets/img/logo.webp" alt="STASH">
+      <span class="nav-logo foot-logo"><img decoding="async" src="assets/img/logo-mark.webp" alt="STASH Retail Group"><span class="nav-sub" aria-hidden="true">Retail Group</span></span>
       <p style="max-width:40ch">Automated convenience retail, placed where people already live, work, stay and play. The good stuff, on demand.</p>
     </div>
     <div>
