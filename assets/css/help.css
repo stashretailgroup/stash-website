@@ -34,6 +34,7 @@ body.help{min-height:100vh;display:flex;flex-direction:column;background:radial-
 .panel form{background:transparent;border:0;border-radius:0;padding:0;gap:16px}
 .panel .hint{font-family:var(--f-body);font-weight:400;text-transform:none;letter-spacing:0;font-size:.88rem;color:var(--muted);line-height:1.4;margin:0}
 .panel p.hint{margin-top:-8px}
+.panel .row2{align-items:end}
 .panel .btn{justify-content:center;width:100%}
 .panel .fineprint{margin:0;font-size:.85rem;color:var(--muted);line-height:1.45}
 .panel .fineprint a,.panel .ready a{color:var(--blue-hi)}
