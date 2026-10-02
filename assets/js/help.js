@@ -2,7 +2,7 @@
 (function(){
   'use strict';
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxXMjL8WNMTSB23HwUAIYIGv1TAciJGAym11j9x8leO4l2wN7rBl1Y9pycEO5Nr6s7zaw/exec';
-  var PHONE = '+17864862722', EMAIL = 'stashretailgroup@gmail.com';
+  var EMAIL = 'stashretailgroup@gmail.com';
   var $ = function(id){ return document.getElementById(id); };
 
   /* ---- machine number from ?m=001 ---- */
@@ -14,11 +14,14 @@
   if(machine){
     $('machineNo').textContent = machine;
     $('machineLine').hidden = false;
-    $('r-machine').value = machine;
-    $('s-machine').value = machine;
+    /* the number is already known, so don't ask for it again */
+    $('r-machine').value = machine; $('r-machine-wrap').hidden = true;
+    $('s-machine').value = machine; $('s-machine-wrap').hidden = true;
   }
-  function smsHref(text){ return 'sms:' + PHONE + '?&body=' + encodeURIComponent(text); }
-  $('smsLink').href = smsHref(machine ? 'STASH machine ' + machine + ': ' : 'STASH support: ');
+  function mailHref(subject, body){
+    return 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + (body ? '&body=' + encodeURIComponent(body) : '');
+  }
+  $('mailLink').href = mailHref(machine ? 'STASH machine ' + machine : 'STASH support');
 
   /* ---- expanding panels ---- */
   function wire(btnId, panelId){
@@ -30,17 +33,17 @@
       if(!open){
         var fields = panel.querySelectorAll('form:not([hidden]) input:not(.hp), form:not([hidden]) select, form:not([hidden]) textarea');
         var target = null;
-        for(var i=0;i<fields.length;i++){ if(!fields[i].value){ target = fields[i]; break; } }
+        for(var i=0;i<fields.length;i++){ if(!fields[i].value && fields[i].offsetParent !== null){ target = fields[i]; break; } }
         if(target){ try{ target.focus({preventScroll:true}); }catch(_){ target.focus(); } }
         btn.scrollIntoView({block:'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
       }
     });
   }
-  wire('refundBtn','refundPanel');
+  wire('problemBtn','problemPanel');
   wire('suggestBtn','suggestPanel');
 
-  /* ---- purchase time: default to now, flag anything older than 7 days ---- */
-  var when = $('r-when'), whenNote = $('r-when-note');
+  /* ---- date and time defaults to now ---- */
+  var when = $('r-when');
   function localStamp(d){
     var p = function(n){ return String(n).padStart(2,'0'); };
     return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
@@ -48,12 +51,15 @@
   var now = new Date();
   when.value = localStamp(now);
   when.max = localStamp(new Date(now.getTime() + 60000));
-  function checkWhen(){
-    var t = when.value ? new Date(when.value).getTime() : NaN;
-    whenNote.hidden = !(t && (Date.now() - t) > 7*24*60*60*1000);
-  }
-  when.addEventListener('change', checkWhen);
-  when.addEventListener('input', checkWhen);
+
+  /* ---- "Something else" asks for a short description ---- */
+  var issue = $('r-issue'), detailsWrap = $('r-details-wrap'), details = $('r-details');
+  function needsDetails(){ return issue.value === 'Something else'; }
+  issue.addEventListener('change', function(){
+    detailsWrap.hidden = !needsDetails();
+    if(needsDetails()){ details.setAttribute('aria-required','true'); details.focus(); }
+    else { details.removeAttribute('aria-required'); details.removeAttribute('aria-invalid'); }
+  });
 
   /* ---- helpers ---- */
   var isEmail = function(v){ return /^\S+@\S+\.\S+$/.test(v); };
@@ -76,56 +82,52 @@
   }
   var source = (location.hostname || 'site') + ' | help' + (machine ? ' | m=' + machine : '');
 
-  /* ---- refund / problem form ---- */
-  var rForm = $('refundForm'), rErr = $('refundErr');
-  rForm.addEventListener('submit', function(e){
+  /* ---- problem form ---- */
+  var pForm = $('problemForm'), pErr = $('problemErr');
+  pForm.addEventListener('submit', function(e){
     e.preventDefault();
-    var f = new FormData(rForm), g = function(k){ return (f.get(k) || '').toString().trim(); };
+    var f = new FormData(pForm), g = function(k){ return (f.get(k) || '').toString().trim(); };
     if(g('website')) return; // spam trap
-    var contact = g('contact');
+    var contact = g('contact'), other = needsDetails();
     var bad = {
       'r-machine': !g('machine'),
       'r-issue': !g('issue'),
+      'r-details': other && !g('details'),
       'r-item': !g('item'),
       'r-when': !g('when') || isNaN(new Date(g('when')).getTime()),
       'r-contact': !(isEmail(contact) || isPhone(contact))
     };
-    var words = {'r-machine':'the machine number','r-issue':'what happened','r-item':'the item','r-when':'the date and time','r-contact':'an email or phone number we can reach you at'};
+    var words = {'r-machine':'the machine number','r-issue':'what happened','r-details':'a short description','r-item':'the item','r-when':'the date and time','r-contact':'an email or phone number we can reach you at'};
     var missing = [];
     Object.keys(bad).forEach(function(id){ mark(id, bad[id]); if(bad[id]) missing.push(words[id]); });
     if(missing.length){
-      rErr.textContent = 'Please add ' + missing.join(', ') + '.';
-      rErr.hidden = false;
+      pErr.textContent = 'Please add ' + missing.join(', ') + '.';
+      pErr.hidden = false;
       $(Object.keys(bad).filter(function(id){ return bad[id]; })[0]).focus();
       return;
     }
-    rErr.hidden = true;
-    var whenText = niceWhen(g('when'));
+    pErr.hidden = true;
+    var whenText = niceWhen(g('when')), detailText = other ? g('details') : '';
     var summary = [
       'STASH support request',
       'Machine: ' + g('machine'),
       'What happened: ' + g('issue'),
       'Item: ' + g('item'),
-      'Purchased: ' + whenText,
-      'Amount: ' + (g('amount') || '-'),
-      'Card last 4 / app: ' + (g('last4') || '-'),
+      'When: ' + whenText,
       'Contact: ' + contact,
-      g('details') ? '\n' + g('details') : ''
+      detailText ? '\n' + detailText : ''
     ].join('\n').trim();
-    var btn = rForm.querySelector('button[type="submit"]');
+    var btn = pForm.querySelector('button[type="submit"]');
     btn.disabled = true; btn.textContent = 'Sending…';
     send({
-      form:'support', kind:'Refund / problem', machine:g('machine'), issue:g('issue'), item:g('item'),
-      purchased:whenText, amount:g('amount'), last4:g('last4'), details:g('details'), contact:contact, page:source,
-      /* also readable by the earlier version of the sheet script */
-      name:contact, business:'SUPPORT: machine ' + g('machine'), email:isEmail(contact) ? contact : '', phone:isEmail(contact) ? '' : contact, message:summary
+      form:'support', kind:'Problem', machine:g('machine'), issue:g('issue'), item:g('item'),
+      purchased:whenText, amount:'', last4:'', details:detailText, contact:contact, page:source
     }).then(function(){
-      finish(rForm, $('refundDone'));
+      finish(pForm, $('problemDone'));
     }).catch(function(){
-      $('refundMail').href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('STASH support: machine ' + g('machine')) + '&body=' + encodeURIComponent(summary);
-      $('refundSms').href = smsHref(summary);
-      finish(rForm, $('refundFail'));
-    }).then(function(){ btn.disabled = false; btn.textContent = 'Send request'; });
+      $('problemMail').href = mailHref('STASH support: machine ' + g('machine'), summary);
+      finish(pForm, $('problemFail'));
+    }).then(function(){ btn.disabled = false; btn.textContent = 'Send'; });
   });
 
   /* ---- suggestion form ---- */
@@ -148,13 +150,12 @@
     var btn = sForm.querySelector('button[type="submit"]');
     btn.disabled = true; btn.textContent = 'Sending…';
     send({
-      form:'suggest', kind:'Product suggestion', machine:g('machine'), details:g('idea'), contact:contact, page:source,
-      name:contact || 'Customer', business:'SUGGESTION: machine ' + (g('machine') || '-'), email:isEmail(contact) ? contact : '', phone:(contact && !isEmail(contact)) ? contact : '', message:summary
+      form:'suggest', kind:'Product suggestion', machine:g('machine'), details:g('idea'), contact:contact, page:source
     }).then(function(){
       finish(sForm, $('suggestDone'));
     }).catch(function(){
-      $('suggestSms').href = smsHref(summary);
+      $('suggestMail').href = mailHref('STASH product suggestion', summary);
       finish(sForm, $('suggestFail'));
-    }).then(function(){ btn.disabled = false; btn.textContent = 'Send suggestion'; });
+    }).then(function(){ btn.disabled = false; btn.textContent = 'Send'; });
   });
 })();
