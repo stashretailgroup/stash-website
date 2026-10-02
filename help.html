@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Help | STASH Retail Group</title>
-<meta name="description" content="Get help with a STASH machine: request a refund, report a problem, text or call support, or suggest a product.">
+<meta name="description" content="Get help with a STASH machine: report a problem, reach support, or suggest a product.">
 <meta name="theme-color" content="#04060d">
 <link rel="canonical" href="https://stashretailgroup.com/help">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -12,12 +12,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STASH Retail Group">
 <meta property="og:title" content="STASH Help">
-<meta property="og:description" content="Request a refund, report a problem, or reach STASH support.">
+<meta property="og:description" content="Report a problem, reach STASH support, or suggest a product.">
 <meta property="og:url" content="https://stashretailgroup.com/help">
 <meta property="og:image" content="https://stashretailgroup.com/og-image.png">
-<link rel="stylesheet" href="/assets/css/fonts.css?v=20261001a">
-<link rel="stylesheet" href="/assets/css/style.css?v=20261001a">
-<link rel="stylesheet" href="/assets/css/help.css?v=20261001a">
+<link rel="stylesheet" href="/assets/css/fonts.css?v=20261001b">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261001b">
+<link rel="stylesheet" href="/assets/css/help.css?v=20261001b">
 </head>
 <body class="help">
 <a class="skip" href="#top">Skip to main content</a>
@@ -33,20 +33,19 @@
 
   <div class="links">
 
-    <!-- 1. Refund / problem -->
-    <section class="link-card" aria-labelledby="refund-h">
-      <h2 class="link-h" id="refund-h">
-        <button class="link-btn" type="button" id="refundBtn" aria-expanded="false" aria-controls="refundPanel">
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></span>
-          <span class="txt"><b>Request a refund or report a problem</b><small>Charged but nothing came out, wrong item, machine issue</small></span>
+    <!-- 1. Report a problem -->
+    <section class="link-card" aria-labelledby="problem-h">
+      <h2 class="link-h" id="problem-h">
+        <button class="link-btn" type="button" id="problemBtn" aria-expanded="false" aria-controls="problemPanel">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3z"/><path d="M12 10v4M12 17.2v.3"/></svg></span>
+          <span class="txt"><b>Report a problem</b><small>Charged but nothing came out, wrong item, machine issue</small></span>
           <span class="chev" aria-hidden="true"></span>
         </button>
       </h2>
-      <div class="panel" id="refundPanel" hidden>
-        <form id="refundForm" novalidate>
-          <label for="r-machine"><span class="lt">Machine number <span class="req" aria-hidden="true">*</span></span>
-            <input id="r-machine" name="machine" inputmode="numeric" autocomplete="off" required aria-required="true" aria-describedby="r-machine-hint" maxlength="60">
-            <span class="hint" id="r-machine-hint">It's printed on the sticker. No number? Type where the machine is.</span>
+      <div class="panel" id="problemPanel" hidden>
+        <form id="problemForm" novalidate>
+          <label for="r-machine" id="r-machine-wrap"><span class="lt">Machine number <span class="req" aria-hidden="true">*</span></span>
+            <input id="r-machine" name="machine" autocomplete="off" required aria-required="true" maxlength="60" placeholder="On the sticker, or where the machine is">
           </label>
           <label for="r-issue"><span class="lt">What happened? <span class="req" aria-hidden="true">*</span></span>
             <select id="r-issue" name="issue" required aria-required="true">
@@ -54,63 +53,46 @@
               <option>I was charged but nothing came out</option>
               <option>I got the wrong item</option>
               <option>I was charged twice or the wrong amount</option>
-              <option>The item was damaged, expired or already opened</option>
+              <option>The item was damaged or already opened</option>
               <option>The machine isn't working</option>
               <option>Something else</option>
             </select>
           </label>
+          <label for="r-details" id="r-details-wrap" hidden><span class="lt">Tell us what happened <span class="req" aria-hidden="true">*</span></span>
+            <textarea id="r-details" name="details" maxlength="1000"></textarea>
+          </label>
           <label for="r-item"><span class="lt">Item <span class="req" aria-hidden="true">*</span></span>
-            <input id="r-item" name="item" autocomplete="off" required aria-required="true" placeholder="What you bought or tried to buy" maxlength="120">
+            <input id="r-item" name="item" autocomplete="off" required aria-required="true" maxlength="120">
           </label>
-          <label for="r-when"><span class="lt">Date and time of purchase <span class="req" aria-hidden="true">*</span></span>
-            <input id="r-when" name="when" type="datetime-local" required aria-required="true" aria-describedby="r-when-note">
-            <span class="hint" id="r-when-note" hidden>That's more than 7 days ago. Our Refund Policy covers problems reported within 7 days of purchase. You can still send this and we'll review it.</span>
+          <label for="r-when"><span class="lt">Date and time <span class="req" aria-hidden="true">*</span></span>
+            <input id="r-when" name="when" type="datetime-local" required aria-required="true">
           </label>
-          <div class="row2">
-            <label for="r-amount">Amount charged (optional)
-              <input id="r-amount" name="amount" inputmode="decimal" autocomplete="off" placeholder="$" maxlength="12">
-            </label>
-            <label for="r-last4">Card last 4 or payment app (optional)
-              <input id="r-last4" name="last4" autocomplete="off" placeholder="1234 or Apple Pay" aria-describedby="r-last4-hint" maxlength="20">
-            </label>
-          </div>
-          <p class="hint" id="r-last4-hint">This helps us find your purchase. Never send your full card number.</p>
-          <label for="r-details">Anything else? (optional)
-            <textarea id="r-details" name="details" maxlength="1500" placeholder="Tell us what happened"></textarea>
+          <label for="r-contact"><span class="lt">Your email or phone <span class="req" aria-hidden="true">*</span></span>
+            <input id="r-contact" name="contact" autocomplete="email" required aria-required="true" maxlength="120">
           </label>
-          <label for="r-contact"><span class="lt">Email or phone <span class="req" aria-hidden="true">*</span></span>
-            <input id="r-contact" name="contact" autocomplete="email" required aria-required="true" aria-describedby="r-contact-hint" maxlength="120">
-            <span class="hint" id="r-contact-hint">So we can reply and confirm your refund.</span>
-          </label>
-          <p class="req-note"><span aria-hidden="true">*</span> Required</p>
-          <p class="err" id="refundErr" role="alert" hidden></p>
-          <button class="btn btn-primary" type="submit">Send request</button>
-          <p class="fineprint">Report problems within 7 days of your purchase. We reply within 2 business days, and approved refunds go back to your original payment method. See our <a href="/refunds.html">Refund Policy</a>. We use what you send only to handle your request, as described in our <a href="/privacy.html">Privacy Policy</a>.</p>
+          <p class="err" id="problemErr" role="alert" hidden></p>
+          <button class="btn btn-primary" type="submit">Send</button>
+          <p class="fineprint">We reply within 2 business days. <a href="/privacy.html">Privacy Policy</a></p>
           <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         </form>
-        <div class="ready" id="refundDone" hidden role="status" tabindex="-1">
-          <h3>Request received.</h3>
-          <p>Thanks. We'll reply within 2 business days. If it's urgent, text or call <a href="tel:+17864862722">786-486-2722</a>.</p>
+        <div class="ready" id="problemDone" hidden role="status" tabindex="-1">
+          <h3>Got it.</h3>
+          <p>Thanks. We'll reply within 2 business days.</p>
         </div>
-        <div class="ready" id="refundFail" hidden role="alert" tabindex="-1">
+        <div class="ready" id="problemFail" hidden role="alert" tabindex="-1">
           <h3>That didn't send.</h3>
-          <p>Please send it another way so we don't miss it.</p>
-          <div class="acts"><a class="btn btn-primary" id="refundMail" href="mailto:stashretailgroup@gmail.com">Send by email</a><a class="btn btn-ghost" id="refundSms" href="sms:+17864862722">Send by text</a></div>
+          <p>Please email it to us so we don't miss it.</p>
+          <div class="acts"><a class="btn btn-primary" id="problemMail" href="mailto:stashretailgroup@gmail.com">Send by email</a></div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Text / call -->
-    <div class="link-row">
-      <a class="link-btn" id="smsLink" href="sms:+17864862722">
-        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span>
-        <span class="txt"><b>Text support</b><small>786-486-2722</small></span>
-      </a>
-      <a class="link-btn" href="tel:+17864862722">
-        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
-        <span class="txt"><b>Call support</b><small>786-486-2722</small></span>
-      </a>
-    </div>
+    <!-- 2. Email support -->
+    <a class="link-btn" id="mailLink" href="mailto:stashretailgroup@gmail.com">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
+      <span class="txt"><b>Email support</b><small>stashretailgroup@gmail.com</small></span>
+      <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
 
     <!-- 3. Suggest a product -->
     <section class="link-card" aria-labelledby="suggest-h">
@@ -124,19 +106,16 @@
       <div class="panel" id="suggestPanel" hidden>
         <form id="suggestForm" novalidate>
           <label for="s-idea"><span class="lt">What should we stock? <span class="req" aria-hidden="true">*</span></span>
-            <textarea id="s-idea" name="idea" required aria-required="true" maxlength="800" placeholder="Product, brand, flavor, set…"></textarea>
+            <textarea id="s-idea" name="idea" required aria-required="true" maxlength="800"></textarea>
           </label>
-          <label for="s-machine">Machine number (optional)
-            <input id="s-machine" name="machine" inputmode="numeric" autocomplete="off" maxlength="60">
+          <label for="s-machine" id="s-machine-wrap">Machine number (optional)
+            <input id="s-machine" name="machine" autocomplete="off" maxlength="60">
           </label>
-          <label for="s-contact">Email or phone (optional)
-            <input id="s-contact" name="contact" autocomplete="email" aria-describedby="s-contact-hint" maxlength="120">
-            <span class="hint" id="s-contact-hint">Only if you'd like us to tell you when it's in.</span>
+          <label for="s-contact">Your email or phone (optional)
+            <input id="s-contact" name="contact" autocomplete="email" maxlength="120">
           </label>
-          <p class="req-note"><span aria-hidden="true">*</span> Required</p>
           <p class="err" id="suggestErr" role="alert" hidden></p>
-          <button class="btn btn-primary" type="submit">Send suggestion</button>
-          <p class="fineprint">We use what you send only to decide what to stock and to reply if you ask us to. See our <a href="/privacy.html">Privacy Policy</a>.</p>
+          <button class="btn btn-primary" type="submit">Send</button>
           <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         </form>
         <div class="ready" id="suggestDone" hidden role="status" tabindex="-1">
@@ -145,7 +124,7 @@
         </div>
         <div class="ready" id="suggestFail" hidden role="alert" tabindex="-1">
           <h3>That didn't send.</h3>
-          <p>You can text your idea to <a id="suggestSms" href="sms:+17864862722">786-486-2722</a> instead.</p>
+          <p>You can <a id="suggestMail" href="mailto:stashretailgroup@gmail.com">email your idea</a> instead.</p>
         </div>
       </div>
     </section>
@@ -159,7 +138,6 @@
   </div>
 
   <nav class="help-legal" aria-label="Policies">
-    <a href="/refunds.html">Refund Policy</a>
     <a href="/privacy.html">Privacy Policy</a>
     <a href="/terms.html">Terms of Use</a>
     <a href="/accessibility.html">Accessibility</a>
@@ -167,9 +145,9 @@
 </main>
 
 <footer class="help-foot">
-  <p><a href="mailto:stashretailgroup@gmail.com">stashretailgroup@gmail.com</a> · <a href="tel:+17864862722">786-486-2722</a></p>
+  <p><a href="mailto:stashretailgroup@gmail.com">stashretailgroup@gmail.com</a></p>
   <p>© 2026 Godtastic LLC d/b/a STASH Retail Group. Nicotine products are sold only to adults 21 and older.</p>
 </footer>
-<script src="/assets/js/help.js?v=20261001a"></script>
+<script src="/assets/js/help.js?v=20261001b"></script>
 </body>
 </html>
