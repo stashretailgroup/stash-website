@@ -1,0 +1,49 @@
+/* Help page (QR sticker landing): stacked buttons, phone first */
+body.help{min-height:100vh;display:flex;flex-direction:column;background:radial-gradient(120% 60% at 50% 0%,rgba(45,107,255,.22),transparent 60%),var(--ink)}
+.help-head{display:flex;justify-content:center;padding:calc(22px + env(safe-area-inset-top,0px)) 16px 6px}
+.help-head .nav-logo img{height:34px}
+.help-head .nav-sub{font-size:.8rem}
+.help-main{flex:1;width:100%;max-width:520px;margin:0 auto;padding:18px 16px 28px;text-align:center}
+.help-main:focus{outline:none}
+.help-main h1{font-size:clamp(2rem,9vw,2.8rem);margin:6px 0 10px}
+.help-machine{display:inline-block;margin:0 0 10px;padding:6px 14px;border-radius:999px;border:1px solid var(--blue);background:rgba(45,107,255,.16);font-family:var(--f-label);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;color:var(--paper)}
+.help-machine b{color:#fff}
+.help-lede{color:var(--muted);margin:0 0 22px}
+.links{display:grid;gap:12px;text-align:left}
+.link-h{margin:0;font:inherit;font-style:normal;text-transform:none;letter-spacing:0;line-height:inherit}
+.link-btn{display:flex;align-items:center;gap:14px;width:100%;min-height:68px;padding:14px 16px;border-radius:18px;border:1px solid var(--line);background:var(--panel);color:var(--paper);font:inherit;text-align:left;text-decoration:none;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+.link-btn:hover{border-color:var(--blue-hi);transform:translateY(-1px)}
+.link-btn .ico{flex:0 0 auto;display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:rgba(45,107,255,.2);color:var(--blue-hi)}
+.link-btn .ico svg{width:22px;height:22px}
+.link-btn .txt{display:grid;gap:2px;flex:1;min-width:0}
+.link-btn .txt b{font-family:var(--f-label);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:1.08rem;line-height:1.15;color:#fff}
+.link-btn .txt small{font-size:.9rem;color:var(--muted);line-height:1.3}
+.link-btn .chev{flex:0 0 auto;width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin:0 6px 4px 0;transition:transform .2s}
+.link-btn[aria-expanded="true"] .chev{transform:rotate(-135deg);margin:4px 6px 0 0}
+.link-btn[aria-expanded="true"]{border-color:var(--blue);border-radius:18px 18px 0 0}
+.link-btn .arr{flex:0 0 auto;color:#fff}
+.link-btn .arr svg{width:20px;height:20px;display:block}
+.link-btn.hl{background:var(--blue);border-color:var(--blue)}
+.link-btn.hl .ico{background:rgba(255,255,255,.18);color:#fff}
+.link-btn.hl .txt small{color:#fff}
+.link-btn.hl:hover{border-color:#fff}
+.link-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.link-row .link-btn{padding:14px 12px;gap:10px}
+@media (max-width:380px){.link-row{grid-template-columns:1fr}}
+.panel{border:1px solid var(--blue);border-top:0;border-radius:0 0 18px 18px;background:var(--navy);padding:16px}
+.panel form{background:transparent;border:0;border-radius:0;padding:0;gap:16px}
+.panel .hint{font-family:var(--f-body);font-weight:400;text-transform:none;letter-spacing:0;font-size:.88rem;color:var(--muted);line-height:1.4;margin:0}
+.panel p.hint{margin-top:-8px}
+.panel .btn{justify-content:center;width:100%}
+.panel .fineprint{margin:0;font-size:.85rem;color:var(--muted);line-height:1.45}
+.panel .fineprint a,.panel .ready a{color:var(--blue-hi)}
+.panel .ready{text-align:left}
+.panel .ready:focus{outline:2px solid var(--led);outline-offset:3px}
+.panel input[type="datetime-local"]{min-height:48px;color-scheme:dark}
+.hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0}
+.help-legal{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin:26px 0 0}
+.help-legal a{color:var(--blue-hi);font-size:.95rem;padding:6px 2px}
+.help-foot{border-top:1px solid var(--line);padding:18px 16px calc(22px + env(safe-area-inset-bottom,0px));text-align:center;background:transparent}
+.help-foot p{margin:4px 0;font-size:.82rem;color:var(--muted)}
+.help-foot a{color:var(--paper);text-decoration:underline;text-underline-offset:2px}
+@media (prefers-reduced-motion:reduce){.link-btn,.link-btn .chev{transition:none}.link-btn:hover{transform:none}}
