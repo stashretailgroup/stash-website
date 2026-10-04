@@ -488,3 +488,7 @@ html.no-motion *,html.no-motion *::before,html.no-motion *::after{animation-play
 .doc .toc a:hover,.doc .toc a[aria-current="page"]{color:var(--paper);border-color:var(--blue-hi)}
 .table-scroll{overflow-x:auto}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* footer row linking to the pages for hosts */
+.foot-more{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px}
+.foot-more ul{display:flex;flex-wrap:wrap;gap:8px 22px}
