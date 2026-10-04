@@ -374,11 +374,11 @@
             <option value="" disabled selected>Select</option><option>Apartment community</option><option>Hotel</option><option>Bar / nightlife</option><option>Arcade / entertainment</option><option>Gym</option><option>Office</option><option>Hospital</option><option>School / campus</option><option>Retail store</option><option>Other</option>
           </select>
         </label>
-        <label for="f-city">City (optional)<input id="f-city" name="city" placeholder="Your city" autocomplete="address-level2"></label>
+        <label for="f-city"><span class="lt">City <span class="req" aria-hidden="true">*</span></span><input id="f-city" name="city" placeholder="Your city" autocomplete="address-level2" required aria-required="true"></label>
       </div>
       <div class="row2">
         <label for="f-email"><span class="lt">Email <span class="req" aria-hidden="true">*</span></span><input id="f-email" name="email" type="email" autocomplete="email" required aria-required="true"></label>
-        <label for="f-phone">Phone (optional)<input id="f-phone" name="phone" type="tel" autocomplete="tel"></label>
+        <label for="f-phone"><span class="lt">Phone <span class="req" aria-hidden="true">*</span></span><input id="f-phone" name="phone" type="tel" autocomplete="tel" required aria-required="true"></label>
       </div>
       <label for="f-msg">Anything else? (optional)<textarea id="f-msg" name="msg" placeholder="Foot traffic, hours, where you'd like the machine…"></textarea></label>
       <p class="req-note"><span aria-hidden="true">*</span> Required</p>
@@ -433,6 +433,6 @@
   </div>
 </footer>
 <div class="toast" id="toast" role="status"></div>
-<script src="assets/js/main.js?v=20261003d"></script>
+<script src="assets/js/main.js?v=20261004a"></script>
 </body>
 </html>
