@@ -1,8 +1,7 @@
 /* STASH website behavior: tabs, hero machine, lineup, address suggestions, inquiry form */
 (function(){
   let reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let motionPaused=false; try{ motionPaused = localStorage.getItem('stash-motion')==='off'; }catch(_){}
-  if(motionPaused){ reduce=true; document.documentElement.classList.add('no-motion'); }
+  try{ localStorage.removeItem('stash-motion'); }catch(_){} // setting from the retired pause button
   const hoverable = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* ---------- tabs ---------- */
@@ -97,18 +96,6 @@
     });
     inp.addEventListener('blur',()=>setTimeout(close,120));
   
-  /* ---------- pause animations (WCAG 2.2.2) ---------- */
-  (function(){
-    const bt=document.getElementById('motionToggle'); if(!bt) return;
-    const set=(off)=>{ bt.setAttribute('aria-pressed',off); bt.textContent= off ? 'Play animations' : 'Pause animations'; };
-    set(motionPaused);
-    bt.addEventListener('click',()=>{
-      const off = bt.getAttribute('aria-pressed')!=='true';
-      try{ localStorage.setItem('stash-motion', off?'off':'on'); }catch(_){}
-      if(off){ reduce=true; document.documentElement.classList.add('no-motion'); dispatchEvent(new Event('stash:pause')); set(true); }
-      else { location.reload(); }
-    });
-  })();
 })();
 
   /* ---------- screen themes ---------- */
@@ -192,8 +179,7 @@
   /* ---------- lineup ---------- */
   const LU = [
     {n:'STASH Tower', s:'Touchscreen vending tower', img:'assets/img/machines/stash-tower-vape.webp', d:'Our flagship. An edge-lit touchscreen tower with eight shelves behind the door, built for trading cards, vapes and nicotine pouches.', c:['Touchscreen','Card & tap to pay','ID check for 21+','Arcades · Bars · Lounges']},
-    {n:'STASH Kiosk', s:'Tech & travel essentials', img:'assets/img/machines/kiosk-blue.webp', d:'A compact touchscreen kiosk with a pickup bay. Earbuds, power banks, cables, travel and grooming kits, snacks and hydration.', c:['Touchscreen','Tap to pay','Pickup bay','Hotels · Offices · Gyms']},
-    {n:'STASH Kiosk Street', s:'Same kiosk, street wrap', img:'assets/img/machines/kiosk-street.webp', d:'The kiosk in our black graffiti wrap. Made for nightlife, campuses and entertainment spaces that want something louder.', c:['Touchscreen','Tap to pay','Custom wrap','Campuses · Nightlife']},
+    {n:'STASH Kiosk', s:'Tech & travel essentials', img:'assets/img/machines/mini-wall-white.webp', d:'A compact touchscreen kiosk with a pickup bay. Earbuds, power banks, cables, travel and grooming kits, snacks and hydration.', c:['Touchscreen','Tap to pay','Pickup bay','Hotels · Offices · Gyms · Nightlife']},
     {n:'STASH Smart Fridge', s:'Tap, open, grab, close', img:'assets/img/machines/smart-fridge.webp', d:'A single-door smart fridge. Tap your card, open the door, grab what you want and close it. You are charged only for what you take.', c:['Tap card to unlock','Refrigerated','5 shelves','Apartments · Offices']},
     {n:'STASH Smart Market', s:'Double-door grab-and-go', img:'assets/img/machines/smart-market.webp', d:'Two refrigerated doors and one kiosk: a full grab-and-go market for lobbies and break rooms. Drinks, dairy, snacks and fresh items.', c:['Two doors','Refrigerated','Kiosk checkout','Lobbies · Break rooms']}
   ];
