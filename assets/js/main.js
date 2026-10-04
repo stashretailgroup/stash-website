@@ -372,10 +372,13 @@
     if(!g('name')) missing.push('your name');
     if(!g('biz')) missing.push('your business or property');
     if(!g('type')) missing.push('a property type');
+    if(!g('city')) missing.push('your city');
     if(!/^\S+@\S+\.\S+$/.test(g('email'))) missing.push('a valid email');
+    const phoneOk = g('phone').replace(/\D/g,'').length >= 10;
+    if(!phoneOk) missing.push('a phone number with area code');
     if(!g('consent')) missing.push('your agreement to be contacted');
-    const bad={name:!g('name'),biz:!g('biz'),type:!g('type'),email:!/^\S+@\S+\.\S+$/.test(g('email')),consent:!g('consent')};
-    const ids={name:'f-name',biz:'f-biz',type:'f-type',email:'f-email',consent:'f-consent'};
+    const bad={name:!g('name'),biz:!g('biz'),type:!g('type'),city:!g('city'),email:!/^\S+@\S+\.\S+$/.test(g('email')),phone:!phoneOk,consent:!g('consent')};
+    const ids={name:'f-name',biz:'f-biz',type:'f-type',city:'f-city',email:'f-email',phone:'f-phone',consent:'f-consent'};
     Object.keys(ids).forEach(k=>{ const el=document.getElementById(ids[k]); if(bad[k]) el.setAttribute('aria-invalid','true'); else el.removeAttribute('aria-invalid'); });
     if(missing.length){ err.textContent = 'Please add ' + missing.join(', ') + '.'; err.hidden=false; const first=Object.keys(ids).find(k=>bad[k]); if(first) document.getElementById(ids[first]).focus(); return; }
     err.hidden = true;
